@@ -1,0 +1,13 @@
+.input-filter{
+    padding: 5px;
+    border-radius: 5px;
+    width: 230px;
+    margin-left: 30px;
+}
+
+.text-filter{
+    color: rgba(68, 64, 247, 0.7);
+    font-weight: 500;
+    margin-bottom: 5px;
+    margin-left: 30px;
+}
