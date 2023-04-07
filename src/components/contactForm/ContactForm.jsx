@@ -1,80 +1,77 @@
-import React from 'react';
+import  { useState } from 'react';
 import PropTypes from 'prop-types';
 import css from './ContactForm.module.css'
 import { nanoid } from "nanoid";
 
-class ContactForm extends React.Component{
+export default function ContactForm({ onSubmit }) {
+  
+  const [name, setName] = useState('');
+  const [number, setNumber] = useState('');
 
-state = {  
-  name: '',
-  number: '',
-}
+  let nameId = nanoid();   
 
-nameId = nanoid(); 
-
-handleChange = event => { 
+  const handleChange = event => { 
+  
+    if (event.currentTarget.name === 'name') {
+      setName(event.currentTarget.value);
+    } else if (event.currentTarget.name === 'number') {
+      setNumber(event.currentTarget.value)
+    }  
+  }
     
-  this.setState({ 
-    [event.currentTarget.name]: event.currentTarget.value,      
-  });
-}
+  const handleSubmit = event => {
+    event.preventDefault(); 
     
-handleSubmit = event => {
-  event.preventDefault();  
-   
-  this.props.onSubmit({
-    ...this.state,
+    onSubmit({
+    name,
+    number,
     id: nanoid()
-  });
+    });
     
-  this.reset();
-}
+    reset();
+  }
     
-reset = () => {
-  this.setState({ name: '', number: '' });
-  this.nameId = nanoid();   
-};
-    
-render() {
-    return (
-      <form onSubmit={this.handleSubmit} className={css.form}>
-        <div className={css['item-form']}>
-          <label htmlFor={this.nameId} className={css['label-form']}>Name</label>
-          <input
-            type="text"
-            name="name"
-            id={this.nameId}
-            value={this.state.name}
-            pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-            title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-            required
-            onChange={this.handleChange}
-            className={css['input-form']}
-          />
-        </div>
+  const reset = () => {
+    setName('');
+    setNumber(''); 
+    nameId = nanoid();   
+  };    
 
-        <div className={css['item-form']}>
-          <label htmlFor={this.numberId} className={css['label-form']}>Number</label>
-          <input
-            type="tel"
-            name="number"           
-            value={this.state.number}
-            pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-            title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-            required
-            onChange={this.handleChange}
-            className={css['input-form']}
-          />
-        </div>
-          
-          
-          <button type="submit" className={css['btn-form']}>Add contact</button>
-        </form>)
-}
-}
+  return (
+    <form onSubmit={handleSubmit} className={css.form}>
+      <div className={css['item-form']}>
+        <label htmlFor={nameId} className={css['label-form']}>Name</label>
+        <input
+          type="text"
+          name="name"
+          id={nameId}
+          value={name}
+          pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+          title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
+          required
+          onChange={handleChange}
+          className={css['input-form']}
+        />
+      </div>
 
-export default ContactForm;
+      <div className={css['item-form']}>
+        <label htmlFor={nameId} className={css['label-form']}>Number</label>
+        <input
+          type="tel"
+          name="number"           
+          value={number}
+          pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
+          title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
+          required
+          onChange={handleChange}
+          className={css['input-form']}
+        />
+      </div>          
+          
+      <button type="submit" className={css['btn-form']}>Add contact</button>
+    </form>)
+}
 
 ContactForm.propTypes = {
-    onSubmit: PropTypes.func.isRequired,      
+  onSubmit: PropTypes.func.isRequired,      
 }

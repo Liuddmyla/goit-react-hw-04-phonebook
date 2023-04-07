@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import css from './ContactListItem.module.css';
 
-export const ContactListItem = ({ name, number, id, deleteContact }) => {
+export default function ContactListItem ({ name, number, id, deleteContact }) {
     return (<>{name}: {number}
     <button type="button" onClick={deleteContact} id={id} className={css['btn-delete']}>Delete</button>
     </>)

@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
-import { ContactListItem } from "../contactListItem/ContactListItem";
+import  ContactListItem  from "../contactListItem/ContactListItem";
 
-export const ContactList = ({visibleContacts, deleteContact}) => {
+export default function ContactList ({visibleContacts, deleteContact}) {
     return (
         <ul>
             {(visibleContacts).map(contact => ( 

@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import css from './Filter.module.css';
 
-export const Filter = ({ filter, filterChange }) => {
+export default function Filter ({ filter, filterChange }) {
     return (
         <>
         <p className={css['text-filter']}>Find contacts by name</p>
